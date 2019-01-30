@@ -1,25 +1,22 @@
-function pdf_file = make_report( ...
-	tgt_file,nsrc_file,nt1_file, ...
-	out_dir, ...
-	project,subject,session,scan ...
-	)
+function pdf_file = make_report(tgt_nii,wcsrc_nii,wct1_nii,out_dir, ...
+	xnat_proj,xnat_subj,xnat_sess,xnat_t1scan)
 
 % Resample target image to src output geometry so slices match up
 clear matlabbatch
-matlabbatch{1}.spm.spatial.coreg.write.ref = {nsrc_file};
-matlabbatch{1}.spm.spatial.coreg.write.source = {tgt_file};
+matlabbatch{1}.spm.spatial.coreg.write.ref = {wcsrc_nii};
+matlabbatch{1}.spm.spatial.coreg.write.source = {tgt_nii};
 matlabbatch{1}.spm.spatial.coreg.write.roptions.interp = 1;
 matlabbatch{1}.spm.spatial.coreg.write.roptions.wrap = [0 0 0];
 matlabbatch{1}.spm.spatial.coreg.write.roptions.mask = 0;
 matlabbatch{1}.spm.spatial.coreg.write.roptions.prefix = 'r';
 spm_jobman('run',matlabbatch);
-[p,n,e] = fileparts(tgt_file);
-rtgt_file = fullfile(p,['r' n e]);
+[p,n,e] = fileparts(tgt_nii);
+rtgt_nii = fullfile(p,['r' n e]);
 
 % Load image data
-tgt = spm_read_vols(spm_vol(rtgt_file));
-src = spm_read_vols(spm_vol(nsrc_file));
-t1 = spm_read_vols(spm_vol(nt1_file));
+tgt = spm_read_vols(spm_vol(rtgt_nii));
+src = spm_read_vols(spm_vol(wcsrc_nii));
+t1 = spm_read_vols(spm_vol(wct1_nii));
 
 % Figure out screen size so the figure will fit
 ss = get(0,'screensize');
@@ -44,7 +41,7 @@ colormap(gray)
 set(figH.date,'String',date);
 set(figH.stats, 'String', sprintf( ...
 	'%s %s %s %s', ...
-	project,subject,session,scan) );
+	xnat_proj,xnat_subj,xnat_sess,xnat_t1scan) );
 
 % Slices
 slicepos = [38 52 88 124];
@@ -77,6 +74,6 @@ for s = 1:4
 end
 
 % Print to file
-pdf_file = fullfile(out_dir,'magm_coreg_normalize_v2.pdf');
+pdf_file = fullfile(out_dir,'magm_normalize.pdf');
 print(f1,'-dpdf',pdf_file)
 

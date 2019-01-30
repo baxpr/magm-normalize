@@ -1,10 +1,10 @@
-function src_file = make_source(seg_file,out_dir)
+function src_nii = make_source(seg_nii,out_dir)
 
 
 %% Make native space source image. WM=1, GM=2.
 
 % Load image
-segV = spm_vol(seg_file);
+segV = spm_vol(seg_nii);
 seg = spm_read_vols(segV);
 
 % Tissue classes:
@@ -24,8 +24,8 @@ gm  = seg>0 & ~ismember(seg,csf_list) & ~ismember(seg,wm_list);
 src = gm;
 
 srcV = rmfield(segV,'pinfo');
-src_file = [out_dir '/src.nii'];
-srcV.fname = src_file;
+src_nii = [out_dir '/src.nii'];
+srcV.fname = src_nii;
 spm_write_vol(srcV,src);
 
 

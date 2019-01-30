@@ -23,7 +23,7 @@ out_dir    = P.Results.out_dir;
 xnat_proj   = P.Results.xnat_proj;
 xnat_subj   = P.Results.xnat_subj;
 xnat_sess   = P.Results.xnat_sess;
-xnat_t1sca  = P.Results.xnat_t1scan;
+xnat_t1scan = P.Results.xnat_t1scan;
 
 fprintf('%s %s %s %s\n', ...
 	xnat_proj,xnat_subj,xnat_sess,xnat_t1scan);

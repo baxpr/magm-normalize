@@ -25,7 +25,7 @@ tag = tag + 1;
 matlabbatch{tag}.spm.tools.oldnorm.estwrite.subj.source = {csrc_file};
 matlabbatch{tag}.spm.tools.oldnorm.estwrite.subj.wtsrc = '';
 matlabbatch{tag}.spm.tools.oldnorm.estwrite.subj.resample = ...
-	{csrc_file cseg_file};
+	{csrc_file; cseg_file};
 matlabbatch{tag}.spm.tools.oldnorm.estwrite.eoptions.template = ...
 	{tgt_file};
 matlabbatch{tag}.spm.tools.oldnorm.estwrite.eoptions.weight = '';

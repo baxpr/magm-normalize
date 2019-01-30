@@ -13,3 +13,5 @@ gzip(fullfile(out_dir,'wcseg.nii'));
 gzip(fullfile(out_dir,'wcsrc.nii'));
 gzip(fullfile(out_dir,'wct1.nii'));
 
+% Remove leftovers
+delete([out_dir '/*.nii']);

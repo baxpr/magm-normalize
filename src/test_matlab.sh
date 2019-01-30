@@ -5,5 +5,5 @@
 # running this script, execute
 #    export SPM_PATH=/where/is/spm
 # at the shell prompt.
-matlab -nodisplay -nodesktop -nosplash -r \
+matlab -nodesktop -nosplash -r \
     "addpath('${SPM_PATH}'); test_matlab; exit"

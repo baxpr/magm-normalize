@@ -32,7 +32,7 @@ else
 end
 
 % Open figure
-f1 = openfig('pdf_fig.fig','new');
+f1 = openfig('pdf_fig.fig','new','invisible');
 set(f1,'Position',[0 0 dw dh]);
 figH = guihandles(f1);
 colormap(gray)
@@ -73,7 +73,9 @@ for s = 1:4
 	
 end
 
-% Print to file
+% Print to file. Note - we can't use the .fig file approach unless we have
+% an available display, i.e. it requires xvfb. '-noui' option to print
+% allows it to work, but doesn't show the text fields.
 pdf_file = fullfile(out_dir,'magm_normalize.pdf');
 print(f1,'-dpdf',pdf_file)
 

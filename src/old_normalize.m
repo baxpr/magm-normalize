@@ -42,7 +42,6 @@ matlabbatch{tag}.spm.tools.oldnorm.estwrite.roptions.vox = [1 1 1];
 matlabbatch{tag}.spm.tools.oldnorm.estwrite.roptions.interp = 0;
 matlabbatch{tag}.spm.tools.oldnorm.estwrite.roptions.wrap = [0 0 0];
 matlabbatch{tag}.spm.tools.oldnorm.estwrite.roptions.prefix = 'x';
-spm_jobman('run',matlabbatch(tag))
 
 
 % Use same warp to normalize T1 with linear interp
@@ -56,7 +55,6 @@ matlabbatch{tag}.spm.tools.oldnorm.write.roptions.vox = [1 1 1];
 matlabbatch{tag}.spm.tools.oldnorm.write.roptions.interp = 1;
 matlabbatch{tag}.spm.tools.oldnorm.write.roptions.wrap = [0 0 0];
 matlabbatch{tag}.spm.tools.oldnorm.write.roptions.prefix = 'x';
-spm_jobman('run',matlabbatch(tag))
 
 
 % Compute forward deformation field from sn.mat
@@ -67,7 +65,6 @@ matlabbatch{tag}.spm.util.defs.comp{1}.sn2def.bb = ...
 		[NaN NaN NaN; NaN NaN NaN];
 matlabbatch{tag}.spm.util.defs.out{1}.savedef.ofname = snmat_file;
 matlabbatch{tag}.spm.util.defs.out{1}.savedef.savedir.saveusr = {psrc};
-spm_jobman('run',matlabbatch(tag))
 
 
 % Inverse deformation field. We need to rename this file afterwards to
@@ -80,7 +77,11 @@ matlabbatch{tag}.spm.util.defs.comp{1}.inv.comp{1}.sn2def.bb = ...
 matlabbatch{tag}.spm.util.defs.comp{1}.inv.space = {csrc_file};
 matlabbatch{tag}.spm.util.defs.out{1}.savedef.ofname = isn_mat_file;
 matlabbatch{tag}.spm.util.defs.out{1}.savedef.savedir.saveusr = {psrc};
-spm_jobman('run',matlabbatch(tag))
+
+% Run all jobs
+spm_jobman_compiled(matlabbatch,psrc);
+
+% Rename deformation files
 movefile( ...
 	fullfile(psrc,['y_i' nsrc '_sn.nii']), ...
 	fullfile(psrc,['iy_' nsrc '_sn.nii']) );

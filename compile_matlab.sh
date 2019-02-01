@@ -22,10 +22,20 @@ export PATH=${MAT_PATH}/bin:${PATH}
 # spm_make_standalone.m in our SPM installation. This only needs to be done once
 # for a given installation, but it won't make changes if it finds it has already
 # run.
-matlab -nodisplay -nodesktop -nosplash -sd src -r \
-    "prep_spm_for_compile('${SPM_PATH}'); exit"
+#matlab -nodisplay -nodesktop -nosplash -sd src -r \
+#    "prep_spm_for_compile('${SPM_PATH}'); exit"
 
-	mkdir -p bin
+# To use spm_jobman for batch jobs, we'll additionally have to compile SPM 
+# itself using spm_make_standalone.m. We save the command line to call compiled
+# SPM to a file where we can get it later, because it has specific path info 
+# that is available now.
+mkdir -p ${SPM_PATH}/standalone
+matlab -nodisplay -nodesktop -nosplash -sd ${SPM_PATH}/config -r \
+    "addpath('${SPM_PATH}'); spm_make_standalone('${SPM_PATH}/standalone'); exit"
+echo "${SPM_PATH}/standalone/run_spm12.sh ${MAT_PATH} " > src/spm_cmd.txt
+
+
+mkdir -p bin
 
 
 ### This one compiles, but with
@@ -49,7 +59,7 @@ matlab -nodisplay -nodesktop -nosplash -sd src -r \
 mcc -m -v \
 -I ${SPM_PATH} \
 -I ${SPM_PATH}/config \
--a ${SPM_PATH}/matlabbatch \
+-I ${SPM_PATH}/matlabbatch \
 -I ${SPM_PATH}/matlabbatch/cfg_basicio \
 -a ${SPM_PATH}/Contents.txt \
 -a ${SPM_PATH}/canonical \

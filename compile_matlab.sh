@@ -37,6 +37,10 @@ echo "${SPM_PATH}/standalone/run_spm12.sh ${MAT_PATH} " > src/spm_cmd.txt
 
 mkdir -p bin
 
+## EEG toolbox is a problem when we use spm_jobman compiled. It has several places
+# e.g. spm_cfg_eeg_artefact where it uses spm_select to inventory its own
+# function files, which don't exist in the compiled environment perhaps? Possibly
+# the issue is with spm('dir') ?
 
 ### This one compiles, but with
 # -I ${SPM_PATH}/config \

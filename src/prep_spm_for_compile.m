@@ -55,3 +55,20 @@ sts = copyfile(fullfile(spm('Dir'),'Contents.m'),...
                fullfile(spm('Dir'),'Contents.txt'));
 if ~sts, warning('Copy of Contents.m failed.'); end
 
+%==========================================================================
+%-Remove Contents.m from all class dirs
+%==========================================================================
+%D = dir([spm_dir '/@*']);
+%for d = 1:length(D)
+%	disp(D(d).name)
+%	f = [spm_dir '/' D(d).name '/Contents.m'];
+%	if exist(f,'file'), delete(f), end
+%end
+%D = dir([spm_dir '/matlabbatch/@*']);
+%for d = 1:length(D)
+%	disp(D(d).name)
+%	f = [spm_dir '/matlabbatch/' D(d).name '/Contents.m'];
+%	if exist(f,'file'), delete(f), end
+%end
+
+

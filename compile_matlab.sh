@@ -25,24 +25,46 @@ export PATH=${MAT_PATH}/bin:${PATH}
 matlab -nodisplay -nodesktop -nosplash -sd src -r \
     "prep_spm_for_compile('${SPM_PATH}'); exit"
 
-# Compile. Including the entire SPM directory structure with -a makes this slow,
-# but avoids problems with missing bits later. We can ignore warnings about 
-# yokogawa_meg_reader (unless using it of course!) Same for the fixedpoint 
-# toolbox.
-mkdir -p bin
+	mkdir -p bin
 
-# FIXME try compiling in matlab (works for spm itself)
-mcc -m -C -N -v magm_normalize.m \
--p ${MAT_PATH}/toolbox/signal \
--a ${SPM_PATH} \
+
+### This one compiles
+#
+mcc -m -v \
+-I ${SPM_PATH} \
+-I ${SPM_PATH}/config \
+-I ${SPM_PATH}/matlabbatch \
+-I ${SPM_PATH}/matlabbatch/cfg_basicio \
+-a ${SPM_PATH}/Contents.txt \
+-a ${SPM_PATH}/canonical \
+-a ${SPM_PATH}/EEGtemplates \
+-a ${SPM_PATH}/toolbox \
+-a ${SPM_PATH}/tpm \
 -a src \
--d bin
+-d bin \
+src/magm_normalize.m
+
+
+### Compile failure here:
+# with or without -C :
+#     Internal Error: Could not determine class of method
+#     "/opt/spm12/@nifti/Contents.m". Number of classes checked: 17.
+#     ...
+#     Error: could not add DEPFUN manifest to CTF archive.
+#
+# Delete all Contents.m first : Same but 
+#     "/opt/spm12/@slover/private/actc.mat". Number of classes checked: 18.
+#mcc -m -C -N -v \
+#-p ${MAT_PATH}/toolbox/signal \
+#-a ${SPM_PATH} \
+#-a src \
+#-d bin \
+#src/magm_normalize.m
 
 
 #-I ${SPM_PATH} \
 #-I ${SPM_PATH}/config \
 #-I ${SPM_PATH}/matlabbatch \
-#-I ${SPM_PATH}/matlabbatch/private \
 #-I ${SPM_PATH}/matlabbatch/cfg_basicio \
 #-a ${SPM_PATH}/Contents.txt \
 #-a ${SPM_PATH}/canonical \

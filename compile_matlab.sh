@@ -28,12 +28,26 @@ matlab -nodisplay -nodesktop -nosplash -sd src -r \
 	mkdir -p bin
 
 
-### This one compiles
+### This one compiles, but with
+# -I ${SPM_PATH}/config \
+# -I ${SPM_PATH}/matlabbatch \
+# -I ${SPM_PATH}/matlabbatch/cfg_basicio \
 #
+# Item matlabbatch: No repeat named
+# spm
+# Undefined function 'list' for input arguments of type 'cell'.
+# Error in cfg_repeat/list (line 112)
+# Error in cfg_util>local_getcjid2subs (line 1352)
+# Error in cfg_util>local_initjob (line 1537)
+# Error in cfg_util (line 802)
+# Error in spm_jobman (line 246)
+# Error in old_normalize (line 45)
+#
+# Change -I to -a on matlabbatch and we get the compile errors again.
 mcc -m -v \
 -I ${SPM_PATH} \
 -I ${SPM_PATH}/config \
--I ${SPM_PATH}/matlabbatch \
+-a ${SPM_PATH}/matlabbatch \
 -I ${SPM_PATH}/matlabbatch/cfg_basicio \
 -a ${SPM_PATH}/Contents.txt \
 -a ${SPM_PATH}/canonical \

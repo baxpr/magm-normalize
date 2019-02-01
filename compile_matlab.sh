@@ -43,6 +43,8 @@ matlab -nodisplay -nodesktop -nosplash -sd src -r \
 # Error in spm_jobman (line 246)
 # Error in old_normalize (line 45)
 #
+# https://www.jiscmail.ac.uk/cgi-bin/webadmin?A2=ind1305&L=spm&D=0&P=259910
+#
 # Change -I to -a on matlabbatch and we get the compile errors again.
 mcc -m -v \
 -I ${SPM_PATH} \

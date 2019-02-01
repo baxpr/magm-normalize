@@ -9,7 +9,7 @@ matlabbatch{1}.spm.spatial.coreg.write.roptions.interp = 1;
 matlabbatch{1}.spm.spatial.coreg.write.roptions.wrap = [0 0 0];
 matlabbatch{1}.spm.spatial.coreg.write.roptions.mask = 0;
 matlabbatch{1}.spm.spatial.coreg.write.roptions.prefix = 'r';
-spm_jobman('run',matlabbatch);
+spm_jobman_compiled(matlabbatch,out_dir);
 [p,n,e] = fileparts(tgt_nii);
 rtgt_nii = fullfile(p,['r' n e]);
 

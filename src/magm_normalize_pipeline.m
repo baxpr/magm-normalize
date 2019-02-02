@@ -8,6 +8,9 @@ function magm_normalize_pipeline( ...
 	xnat_t1scan ...
 	)
 
+% Set up for SPM batch jobs
+%spm_setup_jobman;
+
 % Unzip files and copy to working dir
 disp('Prepping files')
 [t1_nii,seg_nii] = prep_data(t1_niigz,seg_niigz,out_dir);

@@ -4,16 +4,28 @@ function prep_spm_for_compile(spm_dir)
 % spm_make_standalone.m of SPM r7219
 
 addpath(spm_dir);
-addpath(fullfile(spm('dir'),'matlabbatch'));
+addpath(fullfile(spm_dir,'config'));
+addpath(fullfile(spm_dir,'matlabbatch'));
 
 % Only run this if we haven't run it before
-if exist(fullfile(spm('Dir'),'Contents.txt'),'file')
+if exist(fullfile(spm_dir,'Contents.txt'),'file')
 	disp('Looks like we already prepped the SPM dir')
 	return
 else
-	disp(['Updating ' spm('dir') ' for compilation'])
+	disp(['Updating ' spm_dir ' for compilation'])
 end
 
+% The eeg toolbox config is broken (uses spm_select to find functions, and
+% doesn't have an isdeployed section for compiled version). The easy
+% solution is to turn it off, assuming we don't need it
+system(['sed -i ''s/' ...
+	'spmjobs.values = { temporal spatial stats dcm spm_cfg_eeg util tools };' ...
+	'/' ...
+	'spmjobs.values = { temporal spatial stats dcm util tools };' ...
+	'/'' ' spm_dir '/config/spm_cfg.m']);
+
+
+%% The remaining copied from spm_make_standalone.m, without the mcc step
 
 %==========================================================================
 %-Static listing of SPM toolboxes

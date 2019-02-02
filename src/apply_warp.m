@@ -18,5 +18,7 @@ matlabbatch{1}.spm.util.defs.out{1}.pull.interp = interp;
 matlabbatch{1}.spm.util.defs.out{1}.pull.mask = 0;
 matlabbatch{1}.spm.util.defs.out{1}.pull.fwhm = [0 0 0];
 
-spm_jobman_compiled(matlabbatch,p);
+batch_file = fullfile(p,'batch.mat');
+save(batch_file,'matlabbatch');
+spm_standalone('batch',batch_file);
 

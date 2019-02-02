@@ -79,9 +79,6 @@ matlabbatch{tag}.spm.util.defs.out{1}.savedef.ofname = isn_mat_file;
 matlabbatch{tag}.spm.util.defs.out{1}.savedef.savedir.saveusr = {psrc};
 
 % Run all jobs
-%spm_jobman_compiled(matlabbatch,psrc);
-%spm_jobman('run',matlabbatch);
-%spm_jobman_single(matlabbatch);
 batch_file = fullfile(psrc,'batch.mat');
 save(batch_file,'matlabbatch');
 spm_standalone('batch',batch_file);

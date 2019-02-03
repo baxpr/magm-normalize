@@ -7,7 +7,7 @@ magm_normalize
 Warp gray matter segmentation to atlas using SPM12 "Old Normalise"
 
 %setup
-  mkdir -p /opt/magm_normalize
+  mkdir -p ${SINGULARITY_ROOTFS}/opt/magm_normalize
 
 %files
   bin /opt/magm_normalize

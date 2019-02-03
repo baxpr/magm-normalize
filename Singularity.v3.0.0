@@ -36,7 +36,7 @@ Warp gray matter segmentation to atlas using SPM12 "Old Normalise"
   # Singularity-hub doesn't work with github LFS (it gets the pointer info instead 
   # of the actual file) so we get the compiled matlab executable via direct download
   rm /opt/magm_normalize/bin/magm_normalize
-  wget -nv -P /opt/magm_normalize/bin https://github.com/baxpr/magm-normalize/blob/master/bin/magm_normalize?raw=true
+  wget -nv -P /opt/magm_normalize/bin https://github.com/baxpr/magm-normalize/raw/master/bin/magm_normalize
   chmod ugo+rx /opt/magm_normalize/bin/magm_normalize
 
 %runscript

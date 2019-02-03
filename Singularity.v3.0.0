@@ -13,7 +13,7 @@ Warp gray matter segmentation to atlas using SPM12 "Old Normalise"
   bin /opt/magm_normalize
   src /opt/magm_normalize
   compile_matlab.sh /opt/magm_normalize
-  test_singularity.txt /opt/magm_normalize
+  test_singularity.sh /opt/magm_normalize
 
 %labels
   Maintainer baxter.rogers@vanderbilt.edu
